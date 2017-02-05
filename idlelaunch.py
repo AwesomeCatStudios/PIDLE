@@ -4,7 +4,7 @@ import sys
 import subprocess as sub
 import shlex as sh
 import time as t
-import pygame as py
+#import pygame as py
 
 from tkinter import filedialog as fi
 
