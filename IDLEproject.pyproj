@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7b2dae6d-204d-49ba-abce-2e47f507c40a}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>idlelaunch.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId />
+    <InterpreterVersion />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+    <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="build\exe.win32-3.5\favicon.ico" />
+    <Content Include="build\exe.win32-3.5\pydoc_data\_pydoc.css" />
+    <Content Include="build\exe.win32-3.5\tk\demos\images\earth.gif" />
+    <Content Include="build\exe.win32-3.5\tk\demos\images\earthris.gif" />
+    <Content Include="build\exe.win32-3.5\tk\demos\images\ouster.png" />
+    <Content Include="build\exe.win32-3.5\tk\demos\images\tcllogo.gif" />
+    <Content Include="build\exe.win32-3.5\tk\images\lamp.png" />
+    <Content Include="build\exe.win32-3.5\tk\images\lamp.svg" />
+    <Content Include="build\exe.win32-3.5\tk\images\logo100.gif" />
+    <Content Include="build\exe.win32-3.5\tk\images\logo64.gif" />
+    <Content Include="build\exe.win32-3.5\tk\images\logoLarge.gif" />
+    <Content Include="build\exe.win32-3.5\tk\images\logoMed.gif" />
+    <Content Include="build\exe.win32-3.5\tk\images\pwrdLogo100.gif" />
+    <Content Include="build\exe.win32-3.5\tk\images\pwrdLogo150.gif" />
+    <Content Include="build\exe.win32-3.5\tk\images\pwrdLogo175.gif" />
+    <Content Include="build\exe.win32-3.5\tk\images\pwrdLogo200.gif" />
+    <Content Include="build\exe.win32-3.5\tk\images\pwrdLogo75.gif" />
+    <Content Include="build\exe.win32-3.5\tk\images\tai-ku.gif" />
+    <Content Include="desktop.ini" />
+    <Content Include="favicon.ico" />
+    <Content Include="google.html" />
+    <Content Include="info.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="build\exe.win32-3.5\idleconfig.py" />
+    <Compile Include="build\exe.win32-3.5\runaction.py" />
+    <Compile Include="idleconfig.py" />
+    <Compile Include="idlelaunch.py" />
+    <Compile Include="idletools.py" />
+    <Compile Include="runaction.py" />
+    <Compile Include="setup.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="build\" />
+    <Folder Include="build\exe.win32-3.5" />
+    <Folder Include="build\exe.win32-3.5\pydoc_data" />
+    <Folder Include="build\exe.win32-3.5\tk\" />
+    <Folder Include="build\exe.win32-3.5\tk\demos\" />
+    <Folder Include="build\exe.win32-3.5\tk\demos\images" />
+    <Folder Include="build\exe.win32-3.5\tk\images" />
+  </ItemGroup>
+  <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
+</Project>
