@@ -11,10 +11,10 @@ hieght = text h
 width = textw
 '''
 import extension as e
-webconfig=80
+webconfig=8080
 openpswd=False
 start=False
-textw=80
+textw=8000
 texth=40
 title="Idle(python) 2.0.5"#title
 passkey=""
@@ -186,23 +186,25 @@ def coe(r=0,w=9):
         showerror("invaid","invaid")
 def webserver(key=0):
     import http.server
-    import SocketServer
+    import socketserver
     trust=True
     while trust:
-        try:
-            PORT = webconfig
+        #try:
+        PORT = webconfig
+        PORT=askinteger("web server","port number please")
             
             
-            Handler = http.server.SimpleHTTPRequestHandler
+        Handler = http.server.SimpleHTTPRequestHandler
 
-            httpd = SocketServer.TCPServer(("", PORT), Handler)
+        httpd = socketserver.TCPServer(("localhost", PORT), Handler)
 
-            print("serving at port", PORT)
-            trust=False
-            httpd.serve_forever()
+        print("serving at port", PORT)
+        trust=False
+        httpd.serve_forever()
             
-        except:
-            showerror("Not a valid port number try again","error")
+        #except:
+        trust=False
+        showerror("Not a valid port number try again","error")
             
             
 class myThread (threading.Thread):
@@ -249,17 +251,33 @@ filemenu.add_command(label="compress", command=compress)
 
 filemenu.add_separator()
 # create more pulldown menus
-editmenu = Menu(menubar, tearoff=0)
+edit=Menu(menubar)
+
+editmenu = Menu(menubar)
 editmenu.add_command(label="open IDLE docs",command=opendcs)
 editmenu.add_command(label="find/replace", command=findr)
 editmenu.add_command(label="get arguments", command=getargs)
 editmenu.add_command(label="redownload", command=rrs)
 editmenu.add_command(label="web server", command=handleweb)
 
+def copy(x=2):
+    screen.clipboard_clear()
+    screen.clipboard_append(txt.selection_get())
+    print("copy:",txt.selection_get())
+def paste(x=2):
+    txt.inset(txt.index(INSERT),screen.clipboard_get())
+    print("paste:",screen.clipboard_get())
+edit.add_command(label="copy", command=copy)
+edit.add_command(label="paste", command=paste)
+
+    
+
+    
 def p(string):
     sys.stderr.write(string+"\n")
     
 filemenu.add_cascade(label="More", menu=editmenu)
+filemenu.add_cascade(label="edit", menu=edit)
 
 screen.bind("<Key-Escape>",quitgui)
 screen.bind("<Button-2>",save4)
