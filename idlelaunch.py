@@ -2,6 +2,8 @@ from tkinter import *
 import os
 #from thread import start_new_thread
 import threading
+import ccode
+from ccode import *
 #this file must exisit for idlelaunch to run properly
 #idleconfig.py idle configruation
 startfile="idleconfig.py"
@@ -16,7 +18,7 @@ openpswd=False
 start=False
 textw=8000
 texth=40
-title="Idle(python) 2.0.5"#title
+title="Idle(python) 2.4.5"#title
 passkey=""
 bgcolor="#e3cdeb"
 idlecodecolor="#93d1cd"
@@ -113,6 +115,19 @@ def stre():
         txt.insert(END,x)
         print(x)
         #sys.stderr.write("file line:"+str(r))
+def estre():
+    global cfile
+    filename=filedialog.askopenfilename(initialdir = "c:/users",title = "choose your file",filetypes = (("python files","*.py"),("all files","*.*")))
+    txt.delete("0.0", 'end')
+    r=0
+    f=read(filename)
+    
+    for x in f:
+        r=r+1
+        x=ccdoe.decypt(e,x)
+        txt.insert(END,x)
+        print(x)
+        #sys.stderr.write("file line:"+str(r))
     cfile=filename
 def save():
     filename =  fi.asksaveasfilename(initialdir = "c:/users",title = "Select file to save",filetypes = (("python 3.5 files","*.py"),("all files","*.*")))
@@ -124,6 +139,16 @@ def save3(i):
     fil=open(filename,"w")
     fil.write(txt.get("1.0",END))
     fil.close()
+def esave2(c=0):
+    try:
+        global cfile
+        filename=fi.asksaveasfilename(initialdir = "c:/users",title = "Select file to save",filetypes = (("python 3.5 files","*.py"),("all files","*.*")))
+        fi=open(filename,"w")
+        fi.write(ccdoe.encypt(e,txt.get("1.0",END)))
+        fi.close()
+    except:
+        print("error bad file")
+
 def save2(c=0):
     try:
         global cfile
@@ -133,6 +158,18 @@ def save2(c=0):
         fi.close()
     except:
         print("error bad file")
+def ssave2(c=0):
+    global asave
+    if asave:
+        
+        try:
+            global cfile
+            filename=cfile
+            fi=open(filename,"w")
+            fi.write(txt.get("1.0",END))
+            fi.close()
+        except:
+            print("error bad file")
 def save4(isop):
     try:
         global cfile
@@ -142,6 +179,7 @@ def save4(isop):
         fil.close()
     except:
         print("error bad file")
+
 def quitgui(event):
     quitask(screen)
     status.destroy()
@@ -235,8 +273,19 @@ if openpswd:
 menubar = Menu(screen)
 def opendcs(s=2):
     chrome("https://javaarchive.github.io/idle/error.htm")
-
-
+from urllib.request import *
+def url():
+    try:
+        urlo=urlopen(simpledialog.askstring("Open url","open url")).read()
+        txt.delete("0.0",END)
+        txt.insert(END,urlo)
+    except:
+        showerror("Bad url","Bad url")
+'''def tell():
+    showinfo(
+'''     
+    
+    
 #menubar.pack()
 #
 # create a pulldown menu, and add it to the menu bar
@@ -252,13 +301,28 @@ filemenu.add_command(label="compress", command=compress)
 filemenu.add_separator()
 # create more pulldown menus
 edit=Menu(menubar)
-
+def google(x=0):
+    search=askstring("google","what should I google for you").replace(" ","+")
+    chrome("https://www.google.com/#safe=active&q="+search)
+    
+def toggle(c=1):
+    global asave
+    asave=not asave
+    
+    
 editmenu = Menu(menubar)
 editmenu.add_command(label="open IDLE docs",command=opendcs)
 editmenu.add_command(label="find/replace", command=findr)
 editmenu.add_command(label="get arguments", command=getargs)
 editmenu.add_command(label="redownload", command=rrs)
 editmenu.add_command(label="web server", command=handleweb)
+editmenu.add_command(label="encypted save", command=esave2)
+editmenu.add_command(label="decypted open", command=estre)
+editmenu.add_command(label="open an url", command=url)
+#editmenu.add_command(label="Check for autosave", command=getsave)
+editmenu.add_command(label="Change autosave setting(on/off)", command=toggle)
+s=Menu(menubar)
+s.add_command(label="google", command=google)
 
 def copy(x=2):
     screen.clipboard_clear()
@@ -270,7 +334,7 @@ def paste(x=2):
 edit.add_command(label="copy", command=copy)
 edit.add_command(label="paste", command=paste)
 
-    
+filemenu.add_cascade(label="Search",menu=s)    
 
     
 def p(string):
@@ -284,7 +348,7 @@ screen.bind("<Button-2>",save4)
 screen.bind("<F1>",docs)
 
 screen.bind("<F2>",docx)
-screen.bind("<KeyPress>",save2)
+screen.bind("<KeyPress>",ssave2)
 
 asave=True
 def toggle(c=1):
@@ -323,14 +387,17 @@ txt.config(width=textw, height=texth,bg=idlecodecolor)
 enter=Entry(screen)
 enter.pack()
 status=Tk()
-status.iconbitmap("favicon.ico")
+#status.iconbitmap("favicon.ico")
 txt2=Text(status,bg="#f4f8ff")
 txt2.pack()
 txt2.config(width=75)
 entry=Entry(status,font = "Helvetica 16 bold")
 entry.pack()
 
-
+def getrsave():
+    global asave
+    showinfo("it is","Autosave:"+str(asave))
+    
 def runcmd(parms="hi"):
     try:
         s=sh.split(entry.get())
@@ -355,6 +422,7 @@ def go(true=True):
     #th= myThread(1, "cmd", 1)
     #th.start()
 entry.bind("<Return>",runcmd)
+editmenu.add_command(label="Check for autosave", command=getrsave)
 btn=Button(status,bg="magenta",text="run in cmdline",command=runcmd)
 btn.pack()
 def processplugin():
