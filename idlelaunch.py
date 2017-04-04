@@ -105,7 +105,7 @@ def read(f):
     except:print("bad read file")
 def stre():
     global cfile
-    filename=filedialog.askopenfilename(initialdir = "c:/users",title = "choose your file",filetypes = (("python files","*.py"),("all files","*.*")))
+    filename=filedialog.askopenfilename(title = "choose your file",filetypes = (("python files","*.py"),("all files","*.*")))
     txt.delete("0.0", 'end')
     r=0
     f=read(filename)
@@ -117,7 +117,7 @@ def stre():
         #sys.stderr.write("file line:"+str(r))
 def estre():
     global cfile
-    filename=filedialog.askopenfilename(initialdir = "c:/users",title = "choose your file",filetypes = (("python files","*.py"),("all files","*.*")))
+    filename=filedialog.askopenfilename(title = "choose your file",filetypes = (("python files","*.py"),("all files","*.*")))
     txt.delete("0.0", 'end')
     r=0
     f=read(filename)
@@ -130,19 +130,19 @@ def estre():
         #sys.stderr.write("file line:"+str(r))
     cfile=filename
 def save():
-    filename =  fi.asksaveasfilename(initialdir = "c:/users",title = "Select file to save",filetypes = (("python 3.5 files","*.py"),("all files","*.*")))
+    filename =  fi.asksaveasfilename(title = "Select file to save",filetypes = (("python 3.5 files","*.py"),("all files","*.*")))
     fil=open(filename,"w")
     fil.write(txt.get("1.0",END))
     fil.close()
 def save3(i):
-    filename =  fi.asksaveasfilename(initialdir = "c:/users",title = "Select file to save",filetypes = (("python 3.5 files","*.py"),("all files","*.*")))
+    filename =  fi.asksaveasfilename(title = "Select file to save",filetypes = (("python 3.5 files","*.py"),("all files","*.*")))
     fil=open(filename,"w")
     fil.write(txt.get("1.0",END))
     fil.close()
 def esave2(c=0):
     try:
         global cfile
-        filename=fi.asksaveasfilename(initialdir = "c:/users",title = "Select file to save",filetypes = (("python 3.5 files","*.py"),("all files","*.*")))
+        filename=fi.asksaveasfilename(title = "Select file to save",filetypes = (("python 3.5 files","*.py"),("all files","*.*")))
         fi=open(filename,"w")
         fi.write(ccdoe.encypt(e,txt.get("1.0",END)))
         fi.close()
