@@ -189,7 +189,13 @@ def idle(keyboard=False):
     idlelib.PyShell.main()
 def rrs(key=False):
     chrome("https://github.com/javaarchive/idle/archive/master.zip")
-    
+def yahoo(z=1):
+    try:
+        chrome("https://search.yahoo.com/search;_ylc=X3oDMTFiN25laTRvBF9TAzIwMjM1MzgwNzUEaXRjAzEEc2VjA3NyY2hfcWEEc2xrA3NyY2h3ZWI-?p="+askstring("Search yahoo","search keywords").replace(" ","+")+"&fr=yfp-t&fp=1&toggle=1&cop=mss&ei=UTF-8")
+    except:
+        
+        showerror("Something went wrong","search error")
+
     
     
 def compress(r=0,w=9):
@@ -323,6 +329,7 @@ editmenu.add_command(label="open an url", command=url)
 editmenu.add_command(label="Change autosave setting(on/off)", command=toggle)
 s=Menu(menubar)
 s.add_command(label="google", command=google)
+s.add_command(label="yahoo", command=yahoo)
 
 def copy(x=2):
     screen.clipboard_clear()
