@@ -18,7 +18,7 @@ openpswd=False
 start=False
 textw=8000
 texth=40
-title="Idle(python) 2.4.5"#title
+title="Idle(python) 2.5.0"#title
 passkey=""
 bgcolor="#e3cdeb"
 idlecodecolor="#93d1cd"
@@ -60,7 +60,7 @@ sys.stdout=open("program.log","r+")
 if start:
     chrome("https://docs.python.org/3.5/")
 def hello(event):
-   tkmessagebox.showinfo("info","PIDLE is an idle for creating programs \n It is still in devlopment your version: \t "+title[-5:]+"""
+   tkmessagebox.showinfo("info","PIDLE is an idle for creating programs \n It is still in devlopment \nyour version: \t "+title[-5:]+"""
 \n
 I strongly recomendusing the .bat launcher for windows and the script launcher
 \n
@@ -77,7 +77,7 @@ please feel free to make any edits,comments,suggestions or improvements.
 
 
 
-PIDLE 2.2.1 downloaded from github ©
+PIDLE 2.5.0 downloaded from github ©
 """
 )
 args=sys.argv
