@@ -56,6 +56,7 @@ from tkinter import filedialog as fi
 #from idletools import *
 from tkinter.simpledialog import *
 import tkinter.messagebox as tkmessagebox
+open("program.log","w").close()
 sys.stdout=open("program.log","r+")
 if start:
     chrome("https://docs.python.org/3.5/")
@@ -148,6 +149,7 @@ def esave2(c=0):
         fi.close()
     except:
         print("error bad file")
+from urllib.request import urlopen
 
 def save2(c=0):
     try:
