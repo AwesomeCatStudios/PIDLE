@@ -1,4 +1,5 @@
 from tkinter import *
+serverport=8000
 import os
 #from thread import start_new_thread
 import threading
@@ -8,11 +9,13 @@ from ccode import *
 #idleconfig.py idle configruation
 startfile="idleconfig.py"
 from tkinter.messagebox import *
+data=sys.stderr
 '''sets
 hieght = text h
 width = textw
 '''
 import extension as e
+from tkinter.ttk import *
 webconfig=8080
 openpswd=False
 start=False
@@ -116,6 +119,7 @@ def stre():
         txt.insert(END,x)
         print(x)
         #sys.stderr.write("file line:"+str(r))
+    
 def estre():
     global cfile
     filename=filedialog.askopenfilename(title = "choose your file",filetypes = (("python files","*.py"),("all files","*.*")))
@@ -125,7 +129,7 @@ def estre():
     
     for x in f:
         r=r+1
-        x=ccdoe.decypt(e,x)
+        x=ccode.decypt(e,x)
         txt.insert(END,x)
         print(x)
         #sys.stderr.write("file line:"+str(r))
@@ -221,7 +225,8 @@ def findr(s=0):
 def getargs(pants=19854):
     global args
     showinfo("arguments for the program",str(args))
-    
+def c(xserver=""):
+    txt2.insert(END,"\n you picked a color: "+str(colorchooser.askcolor(initialcolor="#ffff4c",parent=screen,title="Pick a color to use in your program")))
 def coe(r=0,w=9):
     filez = filedialog.askopenfilenames(parent=screen,title='Choose file to extract',filetypes = (("python packed files","*.ppf"),("all files","*.*")))
     
@@ -244,13 +249,13 @@ def webserver(key=0):
 
         httpd = socketserver.TCPServer(("localhost", PORT), Handler)
 
-        print("serving at port", PORT)
+        #print("serving at port", PORT)
         trust=False
         httpd.serve_forever()
             
         #except:
         trust=False
-        showerror("Not a valid port number try again","error")
+        #showerror("Not a valid port number try again","error")
             
             
 class myThread (threading.Thread):
@@ -260,15 +265,41 @@ class myThread (threading.Thread):
         self.name = name
         self.counter = counter
     def run(self):
-        print(self.threadID,"\t executing server")
+        #print(self.threadID,"\t executing server")
         webserver(2)
                     
 def handleweb(key=2):
     thread=myThread(0,"webthread",100)
     thread.start()
+class output:
+    def __init__(self,z,parent=000):
+        self.z=z
+    def write(self,text,flush=False):
+        showinfo("single",text)
+    def writelines(self,text=[]):
+        for x in text:
+            showinfo("lines",x)
+class ainput:
+    def __init__(self,z,parent=000):
+        self.z=z
+    def write(self,text,flush=False):
+        self.z.insert(END,text+"\n")
+    def writelines(self,text=[]):
+        for x in text:
+            self.z.insert(END,x+"\n")
+    def read(self,prompt=""):
+        self.write(prompt)
+        return simpledialog.askstring("The program is requesting input","type the input for the program")
+    def readline(self,prompt=""):
+        self.write(prompt)
+        return simpledialog.askstring("The program is requesting input","type the input for the program")
+    def readlines(self,prompt=""):
+        self.write(prompt)
+        return simpledialog.askstring("The program is requesting input","type the input for the program")
+        
+            
+    
 
-    
-    
 screen=Tk()
 screen.title(title)
 screen.bind("<F4>",hello)
@@ -317,8 +348,26 @@ def toggle(c=1):
     global asave
     asave=not asave
     
+class se (threading.Thread):
+    def __init__(self):
+        threading.Thread.__init__(self)
+       
+    def run(self):
+        import warnings as warn
+        exec(open("tools.py","r").read())
+        s.win.mainloop()
+        
+def efunc(x=0):
+	tf=se()
+	tf.start()
+def re(x=0):
+    if askyesno("Restart", "Restart?"):
+        showerror("due to bugs the restart will be disabled")
+    else:
+        print("canceled")
     
 editmenu = Menu(menubar)
+editmenu.add_command(label="Restart(warning:will not save)",command=re)
 editmenu.add_command(label="open IDLE docs",command=opendcs)
 editmenu.add_command(label="find/replace", command=findr)
 editmenu.add_command(label="get arguments", command=getargs)
@@ -329,6 +378,9 @@ editmenu.add_command(label="decypted open", command=estre)
 editmenu.add_command(label="open an url", command=url)
 #editmenu.add_command(label="Check for autosave", command=getsave)
 editmenu.add_command(label="Change autosave setting(on/off)", command=toggle)
+editmenu.add_command(label="add a color into the program", command=c)
+editmenu.add_command(label="replace", command=c)
+editmenu.add_command(label="extension downloader", command=efunc)
 s=Menu(menubar)
 s.add_command(label="google", command=google)
 s.add_command(label="yahoo", command=yahoo)
@@ -366,6 +418,7 @@ def toggle(c=1):
 
 screen.bind("<F3>",save3)
 screen.bind("<F4>",hello)
+screen.bind("<F5>",)
 screen.bind("<F11>",handleweb)
 screen.bind("<F12>",toggle)
 
@@ -397,9 +450,10 @@ enter=Entry(screen)
 enter.pack()
 status=Tk()
 #status.iconbitmap("favicon.ico")
-txt2=Text(status,bg="#f4f8ff")
-txt2.pack()
+txt2=Text(status,bg="#f4f8ff",)
+txt2.pack(fill=BOTH,expand=YES)
 txt2.config(width=75)
+
 entry=Entry(status,font = "Helvetica 16 bold")
 entry.pack()
 
@@ -415,9 +469,10 @@ def runcmd(parms="hi"):
     except:
         txt2.insert(END,"error with command line command")
 
-
+def connection():
+    host=askstr
 class xmyThread (threading.Thread):
-    def __init__(self, threadID, name, counter):
+    def __init__(self):
         threading.Thread.__init__(self)
         self.threadID = threadID
         self.name = name
@@ -425,7 +480,51 @@ class xmyThread (threading.Thread):
     def run(self):
         print(self.threadID,"\t executing command")
         processplugin()
-      
+        
+    
+class server (threading.Thread):
+    def __init__(self, ):
+        threading.Thread.__init__(self)
+       
+    def run(self):
+        global built
+        while True:
+            print("doing job",file=sys.stderr)
+            serversocket.listen(5) 
+            cs, address = serversocket.accept()
+            cs.send(built.encode())
+            cs.close()
+            
+def doclient(x=0):
+    import socket
+    import sys
+
+    # Create a TCP/IP socket
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    # Connect the socket to the port where the server is listening
+    server_address = (askstring("host","hostname"), askinteger("port","port number"))
+    print('connecting to {} port {}'.format(*server_address))
+    sock.connect(server_address)
+
+    try:
+
+       
+        # Look for the response
+        amount_received = 0
+        amount_expected = 30
+        txt.delete(FIRST,END)
+        while amount_received < amount_expected:
+            data = sock.recv(16).decode("UTF-8")
+            amount_received =1+amount_received
+            txt.insert(END,data)
+    
+
+    finally:
+        print('closing socket')
+        sock.close()
+
+print("info:1",file=data)            
 def go(true=True):
     processplugin()
     #th= myThread(1, "cmd", 1)
@@ -444,25 +543,66 @@ def processplugin():
 btn3=Button(status,bg="magenta",text="plugin launch",command=go)
 btn3.pack()    
 
-def run():
-    
+def run(x=0,d=2):
+    global cfile
+    sys.stdout=out
     fi=open("runaction.py","w")
     fi.write(txt.get("1.0",END))
     fi.close()
     r=open("runaction.py","r")
     exec(r.read())
     
-    txt2.insert(END,"run:"+t.asctime()+r.name)
+    txt2.insert(END,"run:"+t.asctime()+cfile)
     r.close()
+    sys.stdout=orginal
     
     
 f=read(startfile)
 print("f:"+str(f))
-
+import copy as c
 txt.insert(END,f)
 print(f)
 btn=Button(screen,text="run",command=run)
 btn.pack()
+screen.geometry("800x900")
+out=output(txt2)
+orginal=sys.stdout
+#sys.stdout=out
+#####sys.stderr=out
+sys.stdin=ainput(txt2)
+screen.bind("<F5>",run)
+import glob
+print("glob",file=data)
+with open("_extension.py") as ext:
+        print("file",file=data)
+        exec(ext.read())
+for x in glob.glob("_*.py"):
+    print("loop  "+x,file=data)
+    with open(x) as ext:
+        print("start extension",file=data)
+        exec(ext.read())
+import socket
+print("server2",file=data)
+# create an INET, STREAMing socket
+serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# bind the socket to a public host, and a well-known port
+serversocket.bind((socket.gethostname(), serverport))
+built="starting"
+# become a server socket
+print("server1",file=data)
+serversocket.listen(5)
+print("server",file=data)
+x=server()
+x.start()
+data=sys.stderr
+print("startstream",file=data)
 
-screen.mainloop()
+editmenu.add_command(label="archive code from other server(running idle)", command=doclient)
+while True:
+    built=txt.get('1.0',END)
+    
+    
+    screen.update_idletasks()
+    screen.update()
+
 
