@@ -52,15 +52,23 @@ def demo():
             self.progress = ttk.Progressbar(self, orient="horizontal",
                                             length=200, mode="determinate")
             self.progress.pack()
-
+            self.updated=0
             self.bytes = 0
             self.maxbytes = 50000
 
         def start(self):
-            self.progress["value"] = 0
-            self.maxbytes = 50000
-            self.progress["maximum"] = 50000
-            self.read_bytes()
+            if self.updated==0:
+                self.progress["value"] = 0
+                self.maxbytes = 5000
+                self.progress["maximum"] = 5000
+                self.read_bytes()
+                self.updated=self.updated+1
+            else:
+                self.progress["value"] = 0
+                self.bytes=0
+                self.read_bytes()
+                self.updated=self.updated+1
+                
 
         def read_bytes(self):
             '''simulate reading 500 bytes; update progress bar'''
@@ -74,6 +82,9 @@ def demo():
             if self.bytes==250:
                 v=d('https://raw.githubusercontent.com/javaarchive/extensions/master/cache.txt', "cachesave.txt")
                 time.sleep(1)
+            if self.bytes==450:
+                v=d('https://raw.githubusercontent.com/javaarchive/extensions/master/cache.txt', "cachesave.txt")
+                time.sleep(1)
                 
             if self.bytes < self.maxbytes:
                 # read more bytes after 100 ms
@@ -81,7 +92,7 @@ def demo():
             else:
                 self.bell()
                 self.title("Finished updating")
-                self.label=ttk.Label(self,text="Dowbload provoided by Github")
+                self.label=ttk.Label(self,text="Download provoided by Github")
                 self.label.pack()
 
     app = SampleApp()

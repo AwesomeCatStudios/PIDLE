@@ -1,0 +1,4 @@
+_extension
+testing
+Welcome to the extension
+installer
