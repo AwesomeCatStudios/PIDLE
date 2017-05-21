@@ -57,6 +57,8 @@ def demo():
             self.maxbytes = 50000
 
         def start(self):
+            self.l=ttk.Label(self,text="percentage")
+            self.l.pack()
             if self.updated==0:
                 self.progress["value"] = 0
                 self.maxbytes = 5000
@@ -87,6 +89,8 @@ def demo():
                 time.sleep(1)
                 
             if self.bytes < self.maxbytes:
+                
+                self.l["text"]=str(self.maxbytes/self.bytes)+"%"
                 # read more bytes after 100 ms
                 self.after(100, self.read_bytes)
             else:
