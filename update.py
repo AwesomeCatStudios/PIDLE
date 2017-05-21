@@ -83,7 +83,7 @@ def demo():
                 v=d('https://raw.githubusercontent.com/javaarchive/extensions/master/cache.txt', "cachesave.txt")
                 time.sleep(1)
             if self.bytes==450:
-                v=d('https://raw.githubusercontent.com/javaarchive/extensions/master/cache.txt', "cachesave.txt")
+                v=d('https://raw.githubusercontent.com/javaarchive/PIDLE/master/update.py', "UpdateIdle.py")
                 time.sleep(1)
                 
             if self.bytes < self.maxbytes:
