@@ -1,4 +1,5 @@
 from tkinter import *
+version="3.0"
 serverport=8000
 import os
 #from thread import start_new_thread
@@ -21,7 +22,7 @@ openpswd=False
 start=False
 textw=8000
 texth=40
-title="Idle(python) 2.7.5"#title
+title="Idle(python)         "+version#title
 passkey=""
 bgcolor="#e3cdeb"
 idlecodecolor="#93d1cd"
@@ -81,7 +82,7 @@ please feel free to make any edits,comments,suggestions or improvements.
 
 
 
-PIDLE 2.7.5 downloaded from github ©
+PIDLE """+version+""" downloaded from github ©
 """
 )
 args=sys.argv
@@ -299,9 +300,15 @@ class ainput:
         
             
     
+srrr=Tk()
+notes=Notebook(srrr)
+screen=Frame(notes)
+screen.pack()
 
-screen=Tk()
-screen.title(title)
+
+notes.insert(END,screen,text="IDLE")
+
+srrr.title(title)
 screen.bind("<F4>",hello)
 if openpswd:
     s=askstring("Password", "Enter password:", show='*')
@@ -422,7 +429,7 @@ screen.bind("<F5>",)
 screen.bind("<F11>",handleweb)
 screen.bind("<F12>",toggle)
 
-screen.config(menu=filemenu)
+srrr.config(menu=filemenu)
 screen.config(bg=bgcolor)
 txt=Text(screen)
 txt.pack(fill=BOTH,anchor=CENTER,expand=YES)
@@ -448,7 +455,9 @@ txt.config(width=textw, height=texth,bg=idlecodecolor)
 #txt2.config(width=60, height=15)
 enter=Entry(screen)
 enter.pack()
-status=Tk()
+status=Frame()
+notes.insert(END,status,text="output")
+notes.pack()
 #status.iconbitmap("favicon.ico")
 txt2=Text(status,bg="#f4f8ff",)
 txt2.pack(fill=BOTH,expand=YES)
@@ -556,7 +565,9 @@ def run(x=0,d=2):
     r.close()
     
     
-    
+import update as u
+us=u.SampleApp()
+notes.insert(END,us,text="update")
 f=read(startfile)
 print("f:"+str(f))
 import copy as c
@@ -564,7 +575,7 @@ txt.insert(END,f)
 print(f)
 btn=Button(screen,text="run",command=run)
 btn.pack()
-screen.geometry("800x900")
+srrr.geometry("800x900")
 out=output(txt2)
 orginal=sys.stdout
 #sys.stdout=out
@@ -597,12 +608,17 @@ x.start()
 data=sys.stderr
 print("startstream",file=data)
 
-editmenu.add_command(label="archive code from other server(running idle)", command=doclient)
-while True:
-    built=txt.get('1.0',END)
-    
-    
-    screen.update_idletasks()
-    screen.update()
 
+editmenu.add_command(label="archive code from other server(running idle)", command=doclient)
+
+while True:
+    try:
+        built=txt.get('1.0',END)
+        screen.update_idletasks()
+        screen.update()
+
+    except:
+        break
+    
+    
 
