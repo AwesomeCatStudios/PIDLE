@@ -7,7 +7,7 @@ import ccode
 from ccode import *
 #this file must exisit for idlelaunch to run properly
 #idleconfig.py idle configruation
-startfile="idleconfig.py"
+startfile="program.log"
 from tkinter.messagebox import *
 data=sys.stderr
 '''sets
@@ -545,7 +545,7 @@ btn3.pack()
 
 def run(x=0,d=2):
     global cfile
-    sys.stdout=out
+    
     fi=open("runaction.py","w")
     fi.write(txt.get("1.0",END))
     fi.close()
@@ -554,7 +554,7 @@ def run(x=0,d=2):
     
     txt2.insert(END,"run:"+t.asctime()+cfile)
     r.close()
-    sys.stdout=orginal
+    
     
     
 f=read(startfile)
