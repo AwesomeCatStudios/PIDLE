@@ -1,5 +1,15 @@
+'''
+PIDLE
+Free software
+You may distrubute.
+
+Demo control
+
+'''
+
+Demo=False
 from tkinter import *
-version="3.0"
+version="3.1"
 serverport=8000
 import os
 #from thread import start_new_thread
@@ -30,9 +40,47 @@ import webbrowser
 
 def fit(obj):
     obj.config(expand=YES)
+
 up=TOP
 right=RIGHT
 left=LEFT
+srrr=Tk()
+notes=Notebook(srrr)  
+new=Frame(notes)
+imports=Text(new)
+imports.pack()
+predicter=Entry(new)
+predicter.pack()
+poutput=Text(new)
+poutput.pack()
+def testphrases(c=12):
+    #test using dir()
+    
+    try:
+        print("begin",file=data)
+        exec(imports.get("0.0",END))
+        print(imports.get("0.0",END),file=data)
+        print("import sucess",file=data)
+        
+        
+        print("auto set",file=data)
+        Test=eval(predicter.get())
+        print("set sucess  "+predicter.get(),file=data)
+        print("set test:  "+str(Test),file=data)
+        poutput.delete("0.0",END)
+        for x in dir(Test):
+            print("Loading\t "+x,file=data)
+            poutput.insert(END,x+"\n")
+        
+        
+    except:
+        messagebox.showwarning(
+            "Sorry",
+            "the selected test could not be run:\n Test info not avalibe"
+        )
+testfor=Button(new,text="Test for",command=testphrases)
+testfor.pack()
+notes.insert(END,new,text="auto completer")
 def quitask(screen):
     if askokcancel("Quit", "Do you really wish to quit?"):
         screen.destroy()
@@ -60,6 +108,7 @@ from tkinter import filedialog as fi
 #from idletools import *
 from tkinter.simpledialog import *
 import tkinter.messagebox as tkmessagebox
+
 open("program.log","w").close()
 sys.stdout=open("program.log","r+")
 if start:
@@ -299,9 +348,8 @@ class ainput:
         return simpledialog.askstring("The program is requesting input","type the input for the program")
         
             
-    
-srrr=Tk()
-notes=Notebook(srrr)
+ 
+
 screen=Frame(notes)
 screen.pack()
 
@@ -397,7 +445,7 @@ def copy(x=2):
     screen.clipboard_append(txt.selection_get())
     print("copy:",txt.selection_get())
 def paste(x=2):
-    txt.inset(txt.index(INSERT),screen.clipboard_get())
+    screen.focus_get().event_generate('<<Cut>>')
     print("paste:",screen.clipboard_get())
 edit.add_command(label="copy", command=copy)
 edit.add_command(label="paste", command=paste)
