@@ -9,12 +9,13 @@ Demo control
 
 Demo=False
 from tkinter import *
-version="3.1"
+version="3.2"
 serverport=8000
 import os
 #from thread import start_new_thread
 import threading
 import ccode
+import time
 from ccode import *
 #this file must exisit for idlelaunch to run properly
 #idleconfig.py idle configruation
@@ -27,6 +28,23 @@ width = textw
 '''
 import extension as e
 from tkinter.ttk import *
+class workBar:
+    def __init__(self,autostart=False):
+        self.win=Tk()
+        self.win.title("Working")
+        if autostart:
+            
+            self.progress = Progressbar(self.win, orient="horizontal",length=500, mode="indeterminate")
+            self.progress.pack()
+            self.progress.start(50)
+    def start(self):
+        self.progress = Progressbar(self.win, orient="horizontal",length=500, mode="indeterminate")
+        self.progress.pack()
+        self.progress.start(50)
+    def stop(self):
+        self.progress.stop()
+        self.win.destroy()
+
 webconfig=8080
 openpswd=False
 start=False
@@ -53,6 +71,7 @@ predicter=Entry(new)
 predicter.pack()
 poutput=Text(new)
 poutput.pack()
+time.sleep(0.1)
 def testphrases(c=12):
     #test using dir()
     
@@ -307,7 +326,9 @@ def webserver(key=0):
         trust=False
         #showerror("Not a valid port number try again","error")
             
-            
+
+sta=workBar(True)
+time.sleep(5)
 class myThread (threading.Thread):
     def __init__(self, threadID, name, counter):
         threading.Thread.__init__(self)
@@ -420,7 +441,11 @@ def re(x=0):
         showerror("due to bugs the restart will be disabled")
     else:
         print("canceled")
-    
+def taptest():
+    n=workBar()
+    n.start()
+    time.sleep(60)
+    n.stop()
 editmenu = Menu(menubar)
 editmenu.add_command(label="Restart(warning:will not save)",command=re)
 editmenu.add_command(label="open IDLE docs",command=opendcs)
@@ -436,6 +461,8 @@ editmenu.add_command(label="Change autosave setting(on/off)", command=toggle)
 editmenu.add_command(label="add a color into the program", command=c)
 editmenu.add_command(label="replace", command=c)
 editmenu.add_command(label="extension downloader", command=efunc)
+editmenu.add_command(label="Progress demo", command=taptest)
+
 s=Menu(menubar)
 s.add_command(label="google", command=google)
 s.add_command(label="yahoo", command=yahoo)
@@ -452,6 +479,12 @@ edit.add_command(label="paste", command=paste)
 
 filemenu.add_cascade(label="Search",menu=s)    
 
+        
+        
+            
+            
+        
+        
     
 def p(string):
     sys.stderr.write(string+"\n")
@@ -476,8 +509,10 @@ screen.bind("<F4>",hello)
 screen.bind("<F5>",)
 screen.bind("<F11>",handleweb)
 screen.bind("<F12>",toggle)
+new=Menu()
+new.add_cascade(label="Menu",menu=filemenu)
 
-srrr.config(menu=filemenu)
+srrr.config(menu=new)
 screen.config(bg=bgcolor)
 txt=Text(screen)
 txt.pack(fill=BOTH,anchor=CENTER,expand=YES)
@@ -602,7 +637,7 @@ btn3.pack()
 
 def run(x=0,d=2):
     global cfile
-    
+    sys.stdout=out
     fi=open("runaction.py","w")
     fi.write(txt.get("1.0",END))
     fi.close()
@@ -611,6 +646,8 @@ def run(x=0,d=2):
     
     txt2.insert(END,"run:"+t.asctime()+cfile)
     r.close()
+    sys.stdout=sys.__stdout__
+    
     
     
 import update as u
@@ -640,6 +677,7 @@ for x in glob.glob("_*.py"):
     with open(x) as ext:
         print("start extension",file=data)
         exec(ext.read())
+time.sleep(3)
 import socket
 print("server2",file=data)
 # create an INET, STREAMing socket
@@ -658,7 +696,7 @@ print("startstream",file=data)
 
 
 editmenu.add_command(label="archive code from other server(running idle)", command=doclient)
-
+sta.stop()
 while True:
     try:
         built=txt.get('1.0',END)
